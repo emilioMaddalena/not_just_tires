@@ -1,0 +1,14 @@
+<!-- Base page that defines the overall look of the webpage -->
+<html>
+    <head>
+        <!-- Blocks are written by the child page -->
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
