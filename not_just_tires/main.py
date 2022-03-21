@@ -7,29 +7,32 @@ from crypt import methods
 from flask import Flask, flash, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
-from not_just_tires.secrets import MYSQL_PASSWORD, MYSQL_USERNAME, MYSQL_DB_NAME, FLASK_APP_KEY
+import pymysql
+
+from secrets import MYSQL_PASSWORD, MYSQL_USERNAME, MYSQL_DB_NAME, FLASK_APP_KEY
 
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
 
-table_name = 'my_table'
-app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql://', MYSQL_USERNAME, ':', MYSQL_PASSWORD, '@localhost/', MYSQL_DB_NAME])
+app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', MYSQL_USERNAME, ':', MYSQL_PASSWORD, '@localhost/', MYSQL_DB_NAME])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
 
-class Entry(db.Model):
+class Test(db.Model): # has to match the DB table you're targeting
     
     _id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column("name", db.String(100))
-    age = db.Column("age", db.String(100))
-    desert = db.Column("desert", db.String(100))
+    num = db.Column("num", db.Integer)
+    # data_transacao = db.Column("data_transacao", db.Integer)
+    # quantidade = db.Column("quantidade", db.Integer)
+    # tipo_pneu = db.Column("tipo_pneu", db.String(100))
+    # valor_unit = db.Column("valor_unit", db.Float)
+    # valor_tot = db.Column("valor_tot", db.Float)
+    # cliente = db.Column("cliente", db.String(100))
+    # tipo_transacao = db.Column("tipo_transacao", db.String(100))
     
-    def __init__(self, name, age, desert):
-        self.name = name
-        self.age = age
-        self.desert = desert
-
+    def __init__(self, num):
+        self.num = num
+        
 @app.route('/')
 def index():
     my_msg = "We greet the user to our beautiful web page."
@@ -52,13 +55,14 @@ def form():
         form = request.form # that's a dict
         
         # adding form data into DB
-        entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
-        db.session.add(entry)
+        #entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
+        test = Test(num=form["num"])
+        db.session.add(test)
         db.session.commit()
         
         print('You\'ve successfully submitted your data! 🌝')
         return render_template("form.html")
         
 if __name__ == '__main__':
-    db.create_all()
+    #db.create_all()
     app.run()
