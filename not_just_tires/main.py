@@ -3,17 +3,17 @@ This will become a nice website in the future!
 '''
 
 from crypt import methods
-from flask import Flask
-from flask import render_template, request, redirect, flash
+
+from flask import Flask, flash, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
-import secrets
+from not_just_tires.secrets import MYSQL_PASSWORD, MYSQL_USERNAME, MYSQL_DB_NAME, FLASK_APP_KEY
 
 app = Flask(__name__)
-app.secret_key = secrets.APP_KEY
+app.secret_key = FLASK_APP_KEY
 
 table_name = 'my_table'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + table_name + '.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql://', MYSQL_USERNAME, ':', MYSQL_PASSWORD, '@localhost/', MYSQL_DB_NAME])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
