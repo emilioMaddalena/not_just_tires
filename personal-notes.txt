@@ -1,0 +1,14 @@
+SQL cheatsheet:
+
+CREATE DATABASE inventory;
+
+USE inventory;
+
+CREATE TABLE Transactions(
+   id INT NOT NULL,
+   type VARCHAR (20) NOT NULL,
+   unit_price DOUBLE NOT NULL,
+   num_of_tires INT NOT NULL,
+   total_price DOUBLE NOT NULL,
+   PRIMARY KEY( id )
+);
