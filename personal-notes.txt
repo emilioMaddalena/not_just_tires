@@ -4,6 +4,8 @@ CREATE DATABASE inventory;
 
 USE inventory;
 
+SET autocommit = 1;
+
 CREATE TABLE Transactions(
    id INT NOT NULL,
    type VARCHAR (20) NOT NULL,
@@ -12,3 +14,7 @@ CREATE TABLE Transactions(
    total_price DOUBLE NOT NULL,
    PRIMARY KEY( id )
 );
+
+INSERT INTO Transactions VALUES (1, "entrada", 10.1, 10, 101.0);
+
+SELECT * FROM Transactions;

@@ -2,6 +2,8 @@
 
 SQL_SCRIPT = [
     'USE inventory;',
+    
+    'SET autocommit = 1;',
      
     # 'CREATE TABLE IF NOT EXISTS Transactions( \
     #     id INT NOT NULL, \
@@ -13,7 +15,10 @@ SQL_SCRIPT = [
     # );',
     
     #'INSERT INTO Transactions VALUES (2, "saida", 10.1, 5, 50.5);',
-    #'INSERT INTO Transactions VALUES (1, "entrada", 10.1, 10, 101.0);',
+    'INSERT INTO Transactions VALUES (1, "entrada", 10.1, 10, 101.0);',
+    'SHOW DATABASES',
     
-    'SELECT * FROM Transactions'
+    'SHOW TABLES FROM inventory;',
+    
+    'SELECT * FROM Transactions;'
 ]

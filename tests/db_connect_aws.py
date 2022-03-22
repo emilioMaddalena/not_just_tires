@@ -1,4 +1,5 @@
 import sys
+
 sys.path.insert(0, '..')
 
 import mysql.connector
@@ -17,5 +18,9 @@ my_db = mysql.connector.connect(
 my_cursor = my_db.cursor()
 
 for sql_command in SQL_SCRIPT:
+    print('\n~ Command:')
+    print(sql_command)
     my_cursor.execute(sql_command)
+    
+    print('~ Output:')
     for msg in my_cursor: print(msg)
