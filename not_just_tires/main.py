@@ -4,7 +4,7 @@ This will become a nice website in the future!
 
 from crypt import methods
 
-from flask import Flask, flash, redirect, render_template, request
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
@@ -33,10 +33,14 @@ class Test(db.Model): # has to match the DB table you're targeting
     def __init__(self, num):
         self.num = num
         
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    my_msg = "We greet the user to our beautiful web page."
-    return render_template("index.html", message=my_msg)
+    if request.method == "GET":
+        my_msg = "We greet the user to our beautiful web page."
+        return render_template("index.html", message=my_msg)
+
+    if request.method == "POST":
+        return redirect(url_for('form'))
 
 @app.errorhandler(404)
 def page_not_found(e):

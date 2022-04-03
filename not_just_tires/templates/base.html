@@ -1,6 +1,7 @@
 <!-- Base page that defines the overall look of the webpage -->
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
         <!-- Blocks are written by the child page -->
         <title>
             {% block title %}

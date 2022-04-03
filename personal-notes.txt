@@ -1,3 +1,9 @@
+# Python notes
+
+source .venv/bin/activate
+
+# SQL notes
+
 SQL cheatsheet:
 
 CREATE DATABASE inventory;
