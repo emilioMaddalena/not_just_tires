@@ -9,12 +9,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
 
-from secrets import MYSQL_PASSWORD, MYSQL_USERNAME, MYSQL_DB_NAME, FLASK_APP_KEY
+from secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY
 
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
 
-app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', MYSQL_USERNAME, ':', MYSQL_PASSWORD, '@localhost/', MYSQL_DB_NAME])
+app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
