@@ -4,17 +4,17 @@ This will become a nice website in the future!
 
 from crypt import methods
 
-from flask import Flask, flash, redirect, render_template, request
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
 
-from secrets import MYSQL_PASSWORD, MYSQL_USERNAME, MYSQL_DB_NAME, FLASK_APP_KEY
+from secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY
 
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
 
-app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', MYSQL_USERNAME, ':', MYSQL_PASSWORD, '@localhost/', MYSQL_DB_NAME])
+app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -33,10 +33,14 @@ class Test(db.Model): # has to match the DB table you're targeting
     def __init__(self, num):
         self.num = num
         
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    my_msg = "We greet the user to our beautiful web page."
-    return render_template("index.html", message=my_msg)
+    if request.method == "GET":
+        my_msg = "We greet the user to our beautiful web page."
+        return render_template("index.html", message=my_msg)
+
+    if request.method == "POST":
+        return redirect(url_for('form'))
 
 @app.errorhandler(404)
 def page_not_found(e):
