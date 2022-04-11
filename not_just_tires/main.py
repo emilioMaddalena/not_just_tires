@@ -54,6 +54,9 @@ def form():
         return render_template("form.html")
     
     elif request.method == "POST":
+        
+        return render_template("merci.html")
+    
         # the user has submitted something
         if not all(request.form.values()): print("Please, complete the whole form before submitting it.")
         form = request.form # that's a dict

@@ -7,6 +7,7 @@ Form page
 {% block content %}
 <!-- the action attribute defines the address to which the user will be
      redirected to after submitting the form. If "#", then to the same page. -->
+<<<<<<< Updated upstream
 
 <div class="container">
 
@@ -40,4 +41,18 @@ Form page
 
 </div>
 
+=======
+<form action="#" method="post">
+    <p>Nome:</p>
+    <p><input type="text" name="name"/></p>
+    
+    <p>Idade:</p>
+    <p><input type="text" name="age"/></p>
+    
+    <p>Doce favorito:</p>
+    <p><input type="text" name="desert"/></p>
+    
+    <p><input type="submit" value="Submeter"/></p>
+</form>
+>>>>>>> Stashed changes
 {% endblock %}
