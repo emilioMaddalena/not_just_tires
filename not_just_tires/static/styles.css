@@ -16,3 +16,8 @@
     background-color: #008CBA; /* Green */
     color: white;
   }
+
+  p {
+    margin: 0;
+    text-indent: 0ch;
+  }
