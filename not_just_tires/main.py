@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
 
-from secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY
+from my_secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY
 
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
@@ -69,4 +69,4 @@ def form():
         
 if __name__ == '__main__':
     #db.create_all()
-    app.run()
+    app.run(debug=True)

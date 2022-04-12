@@ -10,7 +10,7 @@ The front-end is based on plain HTML and Flask, and data is stored in a SQL data
 
 ### TODOs
 
-- [ ] Create a half-decent form page.
+- [x] Create a half-decent form page.
 - [ ] Create an user autentication page.
 - [ ] Retrieve the data and store it in the SQL DB.
 - [ ] Create a history page with the last N entries.
