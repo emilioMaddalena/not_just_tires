@@ -21,3 +21,9 @@
     margin: 0;
     text-indent: 0ch;
   }
+
+  .jumbotron {
+    height: 15em;
+    padding-top: 10%;
+    padding-bottom: 10%;
+  }

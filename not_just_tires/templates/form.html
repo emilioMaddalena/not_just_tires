@@ -5,18 +5,21 @@ Form page
 {% endblock %}
 
 {% block content %}
+
 <!-- the action attribute defines the address to which the user will be
      redirected to after submitting the form. If "#", then to the same page. -->
 
-    <div class="jumbotron">
-        <h1>Formulário de compra e venda</h1>
-        <p>Especifique aqui os dados da transação:</p>
+    <div class="jumbotron" style="display:flex; align-items: center;">
+        <div>
+            <h1>Formulário de compra e venda</h1>
+            <p>Especifique aqui os dados da transação</p>
+        </div>    
     </div>
 
-    <form>
+    <form action = "" method = "post">
         <div class="form-group">
             <label style="color:red;">*</label><label>Comprador:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="exampleFormControlSelect1" name="comprador">
                 <option>Renato Maddalena</option>
                 <option>Edmilson Andrade</option>
                 <option>Roberto Nantes</option>
@@ -25,7 +28,7 @@ Form page
         </div>
         <div class="form-group">
             <label style="color:red;">*</label><label>Tipo da transação:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="exampleFormControlSelect1" name="tipo_transacao">
                 <option>Compra</option>
                 <option>Venda</option>
             </select>
@@ -33,7 +36,7 @@ Form page
         <br><br>
         <div class="form-group">
             <label style="color:red;">*</label><label>Tipo de pneu:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="exampleFormControlSelect1" name="tipo_pneu">
                 <option>Passeio A</option>
                 <option>Passeio B</option>
                 <option>Caminhonete</option>
@@ -56,11 +59,11 @@ Form page
         </div>
         <div class="form-group">
             <label>Observacoes:</label>
-            <p><input class="form-control" type="text" name="quantidade" min="1" /></p>
+            <p><input class="form-control" type="text" name="observacoes" min="1" /></p>
         </div>
 
-        <!-- <p><button type="button" class="form-control">Submeter!</button></p> -->
-        <p><button type="button" class="button">Submeter!</button></p>
+        <p><button type="submit" class="form-control">Submeter!</button></p>
+        <!-- <p><button type="button" class="button">Submeter!</button></p> -->
     </form>
 
 {% endblock %}

@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 import pymysql
 
 from my_secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY
+import utils
 
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
@@ -51,21 +52,28 @@ def page_not_found(e):
 def form():
     if request.method == "GET":
         # the user is requesting the form
+        print('new GET message!', flush=True)
         return render_template("form.html")
     
     elif request.method == "POST":
-        # the user has submitted something
-        if not all(request.form.values()): print("Please, complete the whole form before submitting it.")
-        form = request.form # that's a dict
+        print(f"\n {request.form} \n")
         
-        # adding form data into DB
-        #entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
-        test = Test(num=form["num"])
-        db.session.add(test)
-        db.session.commit()
-        
-        print('You\'ve successfully submitted your data! 🌝')
-        return render_template("form.html")
+        if not utils.check_mandatory_fields(request.form): 
+            print("Please fill all mandatory fields before submitting!")
+         
+        else:
+            print('You\'ve successfully submitted your data! 🌝')
+            
+            form = request.form # that's a dict
+            
+            # adding form data into DB
+            #entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
+            # test = Test(num=form["num"])
+            # db.session.add(test)
+            # db.session.commit()
+            print('new message!', flush=True)
+            
+    return render_template("form.html")
         
 if __name__ == '__main__':
     #db.create_all()
