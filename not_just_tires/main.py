@@ -19,6 +19,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', DB_USER, ':
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+STATE = 'DEBUG'
+
 class Test(db.Model): # has to match the DB table you're targeting
     
     _id = db.Column("id", db.Integer, primary_key=True)
@@ -56,24 +58,37 @@ def form():
         return render_template("form.html")
     
     elif request.method == "POST":
-        print(f"\n {request.form} \n")
+        utils.print_deb(f"{request.form}", STATE)
         
         if not utils.check_mandatory_fields(request.form): 
-            print("Please fill all mandatory fields before submitting!")
+            utils.print_deb('Fill all mandatory fields before submitting!', STATE)
          
         else:
-            print('You\'ve successfully submitted your data! 🌝')
+            utils.print_deb('You\'ve successfully submitted your data!', STATE)
             
-            form = request.form # that's a dict
+            form = request.form 
             
             # adding form data into DB
-            #entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
+            # entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
             # test = Test(num=form["num"])
             # db.session.add(test)
             # db.session.commit()
-            print('new message!', flush=True)
             
     return render_template("form.html")
+
+@app.route("/history-pre", methods=["GET", "POST"])
+def historyPre():
+    if request.method == "GET":
+        return render_template("history-pre.html")
+    
+    elif request.method == "POST":
+        
+        num = request.form["num-trans"]
+        utils.load_transactions(num)
+        
+        return render_template("error.html"), 404
+            
+    return render_template("error.html"), 404
         
 if __name__ == '__main__':
     #db.create_all()

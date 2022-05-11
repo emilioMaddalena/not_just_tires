@@ -1,0 +1,34 @@
+{
+    "transacoes": [
+        {
+            "ID": "001",
+            "comprador": "Renato Maddalena",
+            "tipo_transacao": "Venda",
+            "tipo_pneu": "Passeio A",
+            "quantidade": "10",
+            "preco_unitario": "13.0",
+            "data": "01.01.2001",
+            "observacoes": ""
+        },
+        {
+            "ID": "002",
+            "comprador": "Evandro Nunes",
+            "tipo_transacao": "Compra",
+            "tipo_pneu": "Caminhonete",
+            "quantidade": "100",
+            "preco_unitario": "22.5",
+            "data": "02.09.2020",
+            "observacoes": "Bom estado"
+        },
+        {
+            "ID": "003",
+            "comprador": "Josemilson",
+            "tipo_transacao": "Venda",
+            "tipo_pneu": "Carcaca",
+            "quantidade": "11",
+            "preco_unitario": "13.0",
+            "data": "07.08.1993",
+            "observacoes": ""
+        }
+    ]
+}
