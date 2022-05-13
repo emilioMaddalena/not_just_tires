@@ -79,7 +79,7 @@ def form():
 @app.route("/history-pre", methods=["GET", "POST"])
 def historyPre():
     if request.method == "GET":
-        return render_template("history-pre.html")
+        return render_template("history-pre.html", data='my-data')
     
     elif request.method == "POST":
         
