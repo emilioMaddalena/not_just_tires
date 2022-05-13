@@ -31,8 +31,8 @@ Pre history page
 
     <!-- <script type="text/javascript" src="../static/js/my_script.js"> -->
     <script>
-        var x = '{{ data }}'
-        document.write(x)
+        var x = JSON.parse('{{ data | tojson | safe }}');
+        console.log(x.transacoes);
     </script>
 
 {% endblock %}

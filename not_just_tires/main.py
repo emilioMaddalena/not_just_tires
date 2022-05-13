@@ -3,6 +3,7 @@ This will become a nice website in the future!
 '''
 
 from crypt import methods
+import json
 
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -79,7 +80,11 @@ def form():
 @app.route("/history-pre", methods=["GET", "POST"])
 def historyPre():
     if request.method == "GET":
-        return render_template("history-pre.html", data='my-data')
+        
+        file = "./data/test-data.json"
+        with open(file) as f:
+            data = json.load(f)
+            return render_template("history-pre.html", data=data)
     
     elif request.method == "POST":
         
