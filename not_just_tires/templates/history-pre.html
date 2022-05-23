@@ -9,30 +9,38 @@ Pre history page
 <!-- the action attribute defines the address to which the user will be
      redirected to after submitting the form. If "#", then to the same page. -->
 
-    <div class="jumbotron" style="display:flex; align-items: center;">
-        <div>
-            <h1>Histórico de compra e venda</h1>
-            <p>Especifique aqui o numéro de itens a serem listados.</p>
-        </div>    
+<div class="jumbotron" style="display:flex; align-items: center;">
+    <div>
+        <h1>Histórico de compra e venda</h1>
+        <p>Especifique aqui o numéro de itens a serem listados.</p>
+    </div>
+</div>
+
+<form action="" method="post">
+    <div class="form-group">
+        <label style="color:red;">*</label><label>Numéro de transações a serem carregadas::</label>
+        <select class="form-control" id="exampleFormControlSelect1" name="num-trans">
+            <option>1 item</option>
+            <option>10 itens</option>
+            <option>50 itens</option>
+        </select>
     </div>
 
-    <form action = "" method = "post">
-        <div class="form-group">
-            <label style="color:red;">*</label><label>Numéro de transações a serem carregadas::</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="num-trans">
-                <option>1 item</option>
-                <option>10 itens</option>
-                <option>50 itens</option>
-            </select>
-        </div>
+    <p><button type="submit" class="form-control">Submeter!</button></p>
+</form>
 
-        <p><button type="submit" class="form-control">Submeter!</button></p>
-    </form>
 
-    <!-- <script type="text/javascript" src="../static/js/my_script.js"> -->
-    <script>
-        var x = JSON.parse('{{ data | tojson | safe }}');
-        console.log(x.transacoes);
-    </script>
+<!-- <script type="module" src="../static/js/card.js"> -->
+    <!-- To be used in the furute -->
+    
+<script src="../static/js/my_script.js"> </script>
+<script>
+
+    var x = JSON.parse('{{ data | tojson | safe }}');
+    trans = x.transacoes;
+    console.table(trans);
+    printTransactions(trans)
+    
+</script>
 
 {% endblock %}
