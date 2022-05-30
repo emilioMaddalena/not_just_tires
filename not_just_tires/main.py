@@ -69,6 +69,16 @@ def form():
             
             form = request.form 
             
+            with open('./data/test-data2.json', 'r') as f:
+                contents = json.load(f)
+                print(contents)
+            
+            with open('./data/test-data2.json', 'w') as f:
+                print(contents)
+                contents['transacoes'].append(form)
+                print(contents)
+                json.dump(contents, f)
+            
             # adding form data into DB
             # entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
             # test = Test(num=form["num"])
@@ -81,17 +91,17 @@ def form():
 def historyPre():
     if request.method == "GET":
         
-        file = "./data/test-data.json"
+        file = "./data/test-data2.json"
         with open(file) as f:
             data = json.load(f)
             return render_template("history-pre.html", data=data)
     
     elif request.method == "POST":
         
-        num = request.form["num-trans"]
-        utils.load_transactions(num)
+        num = int(request.form["num-trans"])
+        trasacs = utils.load_transactions(num)
         
-        return render_template("error.html"), 404
+        return render_template("history-pre.html", data=trasacs)
             
     return render_template("error.html"), 404
         
