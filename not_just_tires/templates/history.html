@@ -36,11 +36,16 @@ Pre history page
 <script src="../static/js/my_script.js"> </script>
 <script>
 
-    var x = JSON.parse('{{ data | tojson | safe }}');
-    trans = x.transacoes;
-    console.table(trans);
-    printTransactions(trans)
-    
+    var data = JSON.parse('{{ data | tojson | safe }}');
+
+    if( data ) {
+
+        trans = data.transacoes;
+        console.table(trans);
+        printTransactions(trans)
+        
+    }
+
 </script>
 
 {% endblock %}

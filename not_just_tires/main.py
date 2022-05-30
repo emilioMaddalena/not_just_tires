@@ -87,21 +87,20 @@ def form():
             
     return render_template("form.html")
 
-@app.route("/history-pre", methods=["GET", "POST"])
+@app.route("/history", methods=["GET", "POST"])
 def historyPre():
     if request.method == "GET":
         
         file = "./data/test-data2.json"
         with open(file) as f:
             data = json.load(f)
-            return render_template("history-pre.html", data=data)
+            return render_template("history.html", data="")
     
     elif request.method == "POST":
         
         num = int(request.form["num-trans"])
         trasacs = utils.load_transactions(num)
-        
-        return render_template("history-pre.html", data=trasacs)
+        return render_template("history.html", data=trasacs)
             
     return render_template("error.html"), 404
         
