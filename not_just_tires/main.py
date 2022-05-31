@@ -68,16 +68,8 @@ def form():
             utils.print_deb('You\'ve successfully submitted your data!', STATE)
             
             form = request.form 
-            
-            with open('./data/test-data2.json', 'r') as f:
-                contents = json.load(f)
-                print(contents)
-            
-            with open('./data/test-data2.json', 'w') as f:
-                print(contents)
-                contents['transacoes'].append(form)
-                print(contents)
-                json.dump(contents, f)
+            path = './data/test-data.json'
+            utils.store_in_json(path, form)
             
             # adding form data into DB
             # entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
@@ -88,21 +80,37 @@ def form():
     return render_template("form.html")
 
 @app.route("/history", methods=["GET", "POST"])
-def historyPre():
+def history():
     if request.method == "GET":
         
-        file = "./data/test-data2.json"
+        file = "./data/test-data.json"
         with open(file) as f:
             data = json.load(f)
+            
             return render_template("history.html", data="")
     
     elif request.method == "POST":
         
         num = int(request.form["num-trans"])
         trasacs = utils.load_transactions(num)
+        
         return render_template("history.html", data=trasacs)
             
     return render_template("error.html"), 404
+
+@app.route("/del-trans", methods=["POST"])
+def transac_delete():
+    if request.method == "POST":
+        
+        path = 'data/test-data.json'
+        del_id = request.data.decode("utf-8") 
+        utils.delete_transaction(path, del_id)
+        
+        return "All good!"
+            
+    else: 
+        
+        return render_template("error.html"), 404
         
 if __name__ == '__main__':
     #db.create_all()

@@ -43,7 +43,7 @@ function fillTransCard(card, trans) {
     div_buttons.style.marginTop = '10px'
     
     let mod_button = document.createElement('button')
-    mod_button.className = 'btn btn-warning';
+    mod_button.className = 'btn btn-warning'
     mod_button.style.marginRight = '10px'
     mod_button.innerText = 'Modificar'
     div_buttons.appendChild(mod_button)
@@ -51,6 +51,14 @@ function fillTransCard(card, trans) {
     let del_button = document.createElement('button')
     del_button.className = 'btn btn-danger';
     del_button.innerText = 'Deletar'
+    del_button.onclick = function() {
+        
+        fetch('./del-trans', { method: 'POST', body: ID})
+            .then(window.location.reload());
+            
+        // alert("DELETE BUTTON WAS CLICKED!")
+
+    }
     div_buttons.appendChild(del_button)
 
     card.appendChild(div_buttons)
