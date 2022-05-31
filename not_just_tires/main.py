@@ -52,7 +52,8 @@ def page_not_found(e):
     return render_template("error.html"), 404
 
 @app.route("/form", methods=["GET", "POST"])
-def form():
+@app.route("/form/<id>", methods=["GET", "POST"])
+def form(id=None):
     if request.method == "GET":
         # the user is requesting the form
         print('new GET message!', flush=True)
@@ -69,7 +70,7 @@ def form():
             
             form = request.form 
             path = './data/test-data.json'
-            utils.store_in_json(path, form)
+            utils.store_in_json(path, form, id)
             
             # adding form data into DB
             # entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
@@ -105,6 +106,21 @@ def transac_delete():
         path = 'data/test-data.json'
         del_id = request.data.decode("utf-8") 
         utils.delete_transaction(path, del_id)
+        
+        return "All good!"
+            
+    else: 
+        
+        return render_template("error.html"), 404
+
+@app.route("/update-trans", methods=["POST"])
+def transac_update():
+    if request.method == "POST":
+        
+        path = 'data/test-data.json'
+        update_id = request.data.decode("utf-8") 
+        # data = ...
+        utils.delete_transaction(data, update_id)
         
         return "All good!"
             

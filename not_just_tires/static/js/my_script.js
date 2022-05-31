@@ -46,6 +46,12 @@ function fillTransCard(card, trans) {
     mod_button.className = 'btn btn-warning'
     mod_button.style.marginRight = '10px'
     mod_button.innerText = 'Modificar'
+    mod_button.onclick = function() {
+
+        //fetch(['./form/', ID].join(''), { method: 'GET'})
+        window.location.href = ['./form/', ID].join('');
+
+    }
     div_buttons.appendChild(mod_button)
 
     let del_button = document.createElement('button')

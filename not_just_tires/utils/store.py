@@ -1,7 +1,7 @@
 import json
 import uuid
     
-def store_in_json(path, data):
+def store_in_json(path, data, id):
     
     data = data.to_dict()
     
@@ -12,7 +12,16 @@ def store_in_json(path, data):
     with open(path, 'w') as f:
         
         # generate unique ID and append to the data
-        data['ID'] = str(uuid.uuid4())
+        if not id: 
+            data['ID'] = str(uuid.uuid4())
+        
+        # use the provided ID to delete the existing entry
+        else: 
+            data['ID'] = str(id)
+            for pos in range(len(current_contents['transacoes'])):
+                if current_contents['transacoes'][pos]['ID'] == id: 
+                    del current_contents["transacoes"][pos]
+                    break
         
         # append the data onto the json contents and write back
         current_contents['transacoes'].append(data)
