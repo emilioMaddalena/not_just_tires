@@ -2,7 +2,9 @@ import json
 import uuid
     
 def store_in_json(path, data, id):
-    
+    '''
+    Store a transaction in the json file. If the ID is not given, create a unique new ID for it.
+    '''
     data = data.to_dict()
     
     with open(path, 'r') as f:

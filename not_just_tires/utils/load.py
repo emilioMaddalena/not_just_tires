@@ -1,13 +1,10 @@
 import json
 
-def get_ids(num, head):
-    return (int(head), int(head)+int(num))
-    
-def load_transactions(num, head="0"):
-    
-    # idHead, idTail = get_ids(num, head)
-    
-    with open("data/test-data.json") as f:
+def load_transactions(path, num, head="0"):
+    '''
+    Load a specific num of transactions from the json file
+    '''
+    with open(path) as f:
         
         data = json.load(f)
         data["transacoes"] = data["transacoes"][:num]
