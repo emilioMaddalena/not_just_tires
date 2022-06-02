@@ -5,7 +5,7 @@ This will become a nice website in the future!
 from crypt import methods
 import json
 
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, jsonify, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
