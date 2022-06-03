@@ -60,7 +60,7 @@ def index():
     else: return render_template("error.html"), 404
 
 @app.route("/form", methods=["GET", "POST"])
-@app.route("/form/<id>", methods=["GET", "POST"])
+#@app.route("/form/<id>", methods=["GET", "POST"])
 def form(id=None):
     
     if request.method == "GET":
@@ -80,7 +80,7 @@ def form(id=None):
         else:
             
             utils.print_deb('You\'ve successfully submitted your data!', STATE)
-            utils.store_in_json(DATA_PATH, request.form, id)
+            utils.store_in_json(DATA_PATH, request.form)
             
             # adding form data into DB
             # entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])

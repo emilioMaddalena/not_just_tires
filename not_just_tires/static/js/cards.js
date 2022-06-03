@@ -17,9 +17,10 @@ function nameToString(varObj) {
 
 function fillTransCard(card, trans) {
 
-    const { ID, comprador, data, observacoes, preco_unitario, quantidade, tipo_pneu, tipo_transacao } = trans;
+    const { id, comprador, data, observacoes, preco_unitario, quantidade, tipo_pneu, tipo_transacao } = trans;
     
     let myQueryString = {
+        'field_ID': id,
         'field_comprador': comprador,
         'field_tipo_transacao': tipo_transacao,
         'field_tipo_pneu': tipo_pneu,

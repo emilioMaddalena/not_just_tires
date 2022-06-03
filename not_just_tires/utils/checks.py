@@ -2,7 +2,7 @@ def check_mandatory_fields(form):
     '''
     Check if all mandatory fields were filled upon the form submission.
     '''
-    optional = ["observacoes"]
+    optional = ["observacoes", "id"]
     
     # Catching empty fields that are mandatory
     for item in form: 

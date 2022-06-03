@@ -1,44 +1,24 @@
 {
     "transacoes": [
         {
-            "comprador": "Renato Maddalena",
-            "tipo_transacao": "Compra",
-            "tipo_pneu": "Passeio B",
-            "quantidade": "1",
-            "preco_unitario": "1",
-            "data": "2001-01-01",
-            "observacoes": "",
-            "ID": "0a25794e-23dd-4f10-997f-2ee0b2ba0f7b"
-        },
-        {
-            "comprador": "Edmilson Andrade",
-            "tipo_transacao": "Venda",
-            "tipo_pneu": "Carca\u00e7a",
-            "quantidade": "100",
-            "preco_unitario": "22.87",
-            "data": "2022-02-02",
-            "observacoes": "Boa venda!",
-            "ID": "0efe2c22-7fc0-40eb-81a5-eed5299f9c6e"
-        },
-        {
             "comprador": "Roberto Nantes",
             "tipo_transacao": "Venda",
-            "tipo_pneu": "Caminhonete",
-            "quantidade": "3",
-            "preco_unitario": "100",
-            "data": "2001-01-01",
-            "observacoes": "Nada",
-            "ID": "4a001f80-d1b4-4e80-bc84-2e73e2f8e4cb"
+            "tipo_pneu": "Passeio A",
+            "quantidade": "2",
+            "preco_unitario": "22",
+            "data": "2022-03-02",
+            "observacoes": "Modificada",
+            "id": "0007a4fc-7d79-432c-932e-9f49206661e9"
         },
         {
             "comprador": "Renato Maddalena",
-            "tipo_transacao": "Compra",
-            "tipo_pneu": "Caminhonete",
-            "quantidade": "100",
-            "preco_unitario": "89",
-            "data": "1111-10-10",
-            "observacoes": "Final de tarde",
-            "ID": "56d33da5-8c0f-4616-8c41-b6bbe034aa4d"
+            "tipo_transacao": "Venda",
+            "tipo_pneu": "Passeio A",
+            "quantidade": "10",
+            "preco_unitario": "10",
+            "data": "0003-01-02",
+            "observacoes": "First",
+            "id": "bf2b6eca-99f3-453a-8d0d-2d74898bac85"
         }
     ]
 }

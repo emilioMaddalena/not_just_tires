@@ -16,7 +16,7 @@ Form page
     </div>    
 </div>
 
-<form action = "" method = "post" id="main-form">
+<form action="./form" method = "post" id="main-form">
     <div class="form-group">
         <label style="color:red;">*</label><label>Comprador:</label>
         <select class="form-control" id="field_comprador" name="comprador">
@@ -64,10 +64,16 @@ Form page
         <label>Observacoes:</label>
         <p><input class="form-control" id="field_observacoes" type="text" name="observacoes" min="1" /></p>
     </div>
+    <div class="form-group">
+        <p><input class="form-control" id="field_ID" type="text" name="id"/></p>
+    </div>
 
     <script src="../static/js/submit_button.js"> </script>
 
     <script>
+
+        let field_id = document.getElementById("field_ID");
+        field_id.style.display = "none";
         
         // retreiving all query string parameters
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -85,7 +91,7 @@ Form page
                 let form_field = document.getElementById(key);
                 if (form_field) {
                     form_field.value = value;
-                    form_field.style = "color:red;";
+                    form_field.style.color = "red";
                 }
             }
 
