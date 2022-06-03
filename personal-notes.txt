@@ -1,3 +1,5 @@
+# TODO: edit form.html to grab all parameters from the query string and update the form
+
 # Python notes
 
 source .venv/bin/activate

@@ -11,9 +11,23 @@ function printTransactions(trans) {
 
 }
 
+function nameToString(varObj) {
+    return Object.keys(varObj)[0];
+}
+
 function fillTransCard(card, trans) {
 
     const { ID, comprador, data, observacoes, preco_unitario, quantidade, tipo_pneu, tipo_transacao } = trans;
+    
+    let myQueryString = {
+        'field_comprador': comprador,
+        'field_tipo_transacao': tipo_transacao,
+        'field_tipo_pneu': tipo_pneu,
+        'field_quantidade': quantidade,
+        'field_preco_unitario': preco_unitario,
+        'field_data': data,
+        'field_observacoes': observacoes
+    }
 
     card.className = 'alert alert-primary';
     
@@ -48,8 +62,15 @@ function fillTransCard(card, trans) {
     mod_button.innerText = 'Modificar'
     mod_button.onclick = function() {
 
-        //fetch(['./form/', ID].join(''), { method: 'GET'})
-        window.location.href = ['./form/', ID].join('');
+        //fetch('./form/', { method: 'GET', ID: '007'})
+        //WORKS: window.location.href = ['./form/', ID].join('');
+        
+        // fetch('./form?' + new URLSearchParams({
+        //     ID: '008',
+        //     bar: 1,
+        // }));
+
+        window.location.href = "./form?" + new URLSearchParams(myQueryString)
 
     }
     div_buttons.appendChild(mod_button)
