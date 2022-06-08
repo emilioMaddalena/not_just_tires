@@ -6,6 +6,10 @@ Form page
 
 {% block content %}
 
+<script src="../static/js/submit_button.js"> </script>
+<script src="../static/js/form.js"> </script>
+
+
 <!-- the action attribute defines the address to which the user will be
      redirected to after submitting the form. If "#", then to the same page. -->
 
@@ -33,10 +37,12 @@ Form page
             <option style="display:none"> -- Selecionar -- </option>
             <option>Compra</option>
             <option>Venda</option>
+            <option>Recusa</option>
         </select>
     </div>
     <br><br>
-    <div class="form-group">
+
+    <div class="form-group" id="items">
         <label style="color:red;">*</label><label>Tipo de pneu:</label>
         <select class="form-control" id="field_tipo_pneu" name="tipo_pneu">
             <option style="display:none"> -- Selecionar -- </option>
@@ -55,6 +61,7 @@ Form page
         <label style="color:red;">*</label><label>Preco unitário:</label>
         <p><input class="form-control" id="field_preco_unitario" type="number" name="preco_unitario" min="0" step="0.01" /></p>
     </div>
+
     <br><br>
     <div class="form-group">
         <label style="color:red;">*</label><label>Data:</label>
@@ -68,10 +75,18 @@ Form page
         <p><input class="form-control" id="field_ID" type="text" name="id"/></p>
     </div>
 
-    <script src="../static/js/submit_button.js"> </script>
+    <script>
+        submitButton()
+        document.getElementById("submit-button").onclick = function() {
+            document.getElementById("main-form").submit();
+        }
+    </script>
 
     <script>
+        // add_item();
+    </script>
 
+    <script>
         let field_id = document.getElementById("field_ID");
         field_id.style.display = "none";
         
@@ -96,7 +111,6 @@ Form page
             }
 
         }
-       
     </script>
 
 </form>

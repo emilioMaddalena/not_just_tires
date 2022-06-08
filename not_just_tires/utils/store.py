@@ -19,7 +19,8 @@ def store_in_json(path, data):
         if not id: 
             print("\nCREATING A NEW ID!\n")
             data['id'] = str(uuid.uuid4())
-        
+            current_contents['transacoes'].append(data)
+
         # use the provided ID to delete the existing entry
         else: 
             print("\nID ALREADY SENT, REAPLCING OLD TRANSAC!\n")
@@ -28,7 +29,8 @@ def store_in_json(path, data):
                 if current_contents['transacoes'][pos]['id'] == id: 
                     del current_contents["transacoes"][pos]
                     break
-        
-        # append the data onto the json contents and write back
-        current_contents['transacoes'].insert(pos,data)
+            
+            current_contents['transacoes'].insert(pos, data)
+
+        # write back
         json.dump(current_contents, f)

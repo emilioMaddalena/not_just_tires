@@ -13,11 +13,3 @@ function submitButton() {
     document.getElementById("main-div").appendChild(p)
 
 }
-
-submitButton()
-
-document.getElementById("submit-button").onclick = function() {
-    
-    document.getElementById("main-form").submit();
-
-}

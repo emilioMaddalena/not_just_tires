@@ -81,7 +81,7 @@ function fillTransCard(card, trans) {
     del_button.innerText = 'Deletar'
     del_button.onclick = function() {
         
-        fetch('./del-trans', { method: 'POST', body: ID})
+        fetch('./del-trans', { method: 'POST', body: id})
             .then(window.location.reload());
             
         // alert("DELETE BUTTON WAS CLICKED!")

@@ -10,7 +10,7 @@ def delete_transaction(path, del_id):
         
         for pos in range(len(data["transacoes"])):
             
-            current_id = data["transacoes"][pos]['ID']
+            current_id = data["transacoes"][pos]['id']
             
             if str(current_id) == str(del_id): 
                 
