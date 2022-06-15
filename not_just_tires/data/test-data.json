@@ -1,1 +1,24 @@
-{"transacoes": [{"comprador": "Roberto Nantes", "tipo_transacao": "Venda", "tipo_pneu": "Passeio A", "quantidade": "2", "preco_unitario": "22", "data": "2022-03-02", "observacoes": "Modificada", "id": "0007a4fc-7d79-432c-932e-9f49206661e9"}, {"comprador": "Renato Maddalena", "tipo_transacao": "Venda", "tipo_pneu": "Passeio A", "quantidade": "10", "preco_unitario": "10", "data": "0003-01-02", "observacoes": "First", "id": "bf2b6eca-99f3-453a-8d0d-2d74898bac85"}, {"comprador": "Edmilson Andrade", "tipo_transacao": "Recusa", "tipo_pneu": "Carca\u00e7a", "quantidade": "10", "preco_unitario": "15", "data": "1993-03-09", "observacoes": "Emilio's B-day", "id": "c3fe37cb-d3c8-4ebe-847c-927149683877"}]}
+{
+    "transacoes": [
+        {
+            "comprador": "Roberto Nantes",
+            "tipo_transacao": "Venda",
+            "tipo_pneu": "Passeio A",
+            "quantidade": "2",
+            "preco_unitario": "22",
+            "data": "2022-03-02",
+            "observacoes": "Modificada",
+            "id": "0007a4fc-7d79-432c-932e-9f49206661e9"
+        },
+        {
+            "comprador": "Renato Maddalena",
+            "tipo_transacao": "Venda",
+            "tipo_pneu": "Passeio A",
+            "quantidade": "10",
+            "preco_unitario": "10",
+            "data": "0003-01-02",
+            "observacoes": "First",
+            "id": "bf2b6eca-99f3-453a-8d0d-2d74898bac85"
+        }
+    ]
+}

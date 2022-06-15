@@ -19,27 +19,26 @@ DATA_PATH = './data/test-data.json'
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
 
-#! TO BE USED LATER
+app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['postgresql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['mysql+pymysql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
-
-# class Test(db.Model): # has to match the DB table you're targeting
+class Test(db.Model): # has to match the DB table you're targeting
     
-#     _id = db.Column("id", db.Integer, primary_key=True)
-#     num = db.Column("num", db.Integer)
+    __tablename__ = 'transactions'
+    id = db.Column("id", db.Integer, primary_key=True)
+    num = db.Column("num", db.Integer)
     
-#     # data_transacao = db.Column("data_transacao", db.Integer)
-#     # quantidade = db.Column("quantidade", db.Integer)
-#     # tipo_pneu = db.Column("tipo_pneu", db.String(100))
-#     # valor_unit = db.Column("valor_unit", db.Float)
-#     # valor_tot = db.Column("valor_tot", db.Float)
-#     # cliente = db.Column("cliente", db.String(100))
-#     # tipo_transacao = db.Column("tipo_transacao", db.String(100))
+    # data_transacao = db.Column("data_transacao", db.Integer)
+    # quantidade = db.Column("quantidade", db.Integer)
+    # tipo_pneu = db.Column("tipo_pneu", db.String(100))
+    # valor_unit = db.Column("valor_unit", db.Float)
+    # valor_tot = db.Column("valor_tot", db.Float)
+    # cliente = db.Column("cliente", db.String(100))
+    # tipo_transacao = db.Column("tipo_transacao", db.String(100))
     
-#     def __init__(self, num):
-#         self.num = num
+    def __init__(self, num):
+        self.num = num
         
 ##################################################################
 # These are the actual web app pages
@@ -136,5 +135,5 @@ def transac_update():
 
 if __name__ == '__main__':
     
-    #db.create_all()
+    db.create_all()
     app.run(debug=True)

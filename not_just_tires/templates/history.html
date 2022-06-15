@@ -39,11 +39,14 @@ Pre history page
     var data = JSON.parse('{{ data | tojson | safe }}');
 
     if( data ) {
-
         trans = data.transacoes;
+
+        if (trans.length == 0) {
+            alert("No transactions to display!");
+        }
+        
         console.table(trans);
         printTransactions(trans)
-        
     }
 
 </script>
