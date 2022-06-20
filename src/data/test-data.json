@@ -4,10 +4,10 @@
             "comprador": "Roberto Nantes",
             "tipo_transacao": "Venda",
             "tipo_pneu": "Passeio A",
-            "quantidade": "2",
+            "quantidade": "211",
             "preco_unitario": "22",
             "data": "2022-03-02",
-            "observacoes": "Modificada",
+            "observacoes": "Modificada2",
             "id": "0007a4fc-7d79-432c-932e-9f49206661e9"
         },
         {
@@ -19,6 +19,36 @@
             "data": "0003-01-02",
             "observacoes": "First",
             "id": "bf2b6eca-99f3-453a-8d0d-2d74898bac85"
+        },
+        {
+            "comprador": "Roberto Nantes",
+            "tipo_transacao": "Compra",
+            "tipo_pneu": "Passeio B",
+            "quantidade": "1",
+            "preco_unitario": "12",
+            "data": "2222-01-01",
+            "observacoes": "1",
+            "id": "341db397-aa7c-4521-a221-77b6a5da7026"
+        },
+        {
+            "comprador": "Roberto Nantes",
+            "tipo_transacao": "Compra",
+            "tipo_pneu": "Passeio B",
+            "quantidade": "1",
+            "preco_unitario": "12",
+            "data": "2222-01-01",
+            "observacoes": "1",
+            "id": "a3a655b0-1be5-46e0-9764-4f3e28648c27"
+        },
+        {
+            "comprador": "Renato Maddalena",
+            "tipo_transacao": "Compra",
+            "tipo_pneu": "Caminhonete",
+            "quantidade": "87",
+            "preco_unitario": "50",
+            "data": "2022-09-08",
+            "observacoes": "",
+            "id": "edbaef93-a6ce-411c-ae46-3b9f36dd4fac"
         }
     ]
 }

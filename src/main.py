@@ -9,8 +9,9 @@ from flask import Flask, jsonify, flash, redirect, render_template, request, url
 from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
+import uuid
 
-from my_secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY
+from my_secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY, DB_FULL_URL
 import utils
 
 STATE = 'DEBUG'
@@ -19,26 +20,22 @@ DATA_PATH = './data/test-data.json'
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
 
-app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['postgresql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
+#app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['postgresql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_FULL_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-class Test(db.Model): # has to match the DB table you're targeting
+class Transacoes(db.Model): # has to match the DB table you're targeting
     
-    __tablename__ = 'transactions'
-    id = db.Column("id", db.Integer, primary_key=True)
-    num = db.Column("num", db.Integer)
-    
-    # data_transacao = db.Column("data_transacao", db.Integer)
-    # quantidade = db.Column("quantidade", db.Integer)
-    # tipo_pneu = db.Column("tipo_pneu", db.String(100))
-    # valor_unit = db.Column("valor_unit", db.Float)
-    # valor_tot = db.Column("valor_tot", db.Float)
-    # cliente = db.Column("cliente", db.String(100))
-    # tipo_transacao = db.Column("tipo_transacao", db.String(100))
-    
-    def __init__(self, num):
-        self.num = num
+    __tablename__ = 'transacoes'
+    comprador = db.Column("comprador", db.String(100))
+    tipo_transacao = db.Column("tipo_trasacao", db.String(100))
+    tipo_pneu = db.Column("tipo_pneu", db.String(100))
+    quantidade = db.Column("quantidade", db.Integer)
+    preco_unitario = db.Column("preco_unitario", db.Float)
+    data = db.Column("data", db.Date)
+    observacoes = db.Column("observacoes", db.String(100))
+    id = db.Column("id", db.String(100), primary_key=True)
         
 ##################################################################
 # These are the actual web app pages
@@ -81,10 +78,32 @@ def form(id=None):
             utils.print_deb('You\'ve successfully submitted your data!', STATE)
             utils.store_in_json(DATA_PATH, request.form)
             
-            # adding form data into DB
-            # entry = Entry(name=form["name"], age=form["age"], desert=form["desert"])
-            # test = Test(num=form["num"])
-            # db.session.add(test)
+            def store_in_db(db, data):
+                
+                data = data.to_dict()
+                id = data['id']
+                if not id: data['id'] = str(uuid.uuid4())
+
+                transacao = Transacoes( 
+                    id = data['id'],
+                    comprador = data['comprador'],
+                    tipo_transacao = data['tipo_transacao'],
+                    tipo_pneu = data['tipo_pneu'],
+                    quantidade = data['quantidade'],
+                    preco_unitario = data['preco_unitario'],
+                    data = data['data'],
+                    observacoes = data['observacoes']
+                )
+                db.session.add(transacao)
+                
+                try: db.session.commit() # if there's a problem
+                except: db.session.rollback()
+                finally: db.session.close()
+            
+            store_in_db(db, request.form)
+            # adding form data into DB is done through creating an object
+            # transacao = Transacoes()
+            # db.session.add(transacao)
             # db.session.commit()
             
     return render_template("form.html")
@@ -133,7 +152,29 @@ def transac_update():
 # Initialization
 #####################
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     
-    db.create_all()
-    app.run(debug=True)
+#     print("Hello there!")
+#     db.create_all()
+#     app.run(debug=False)
+    
+print("Hello there!")
+db.create_all()
+app.run(debug=True, use_reloader=False)
+
+# #! To be deleted
+# transacao = Transacoes(
+#     id = 'idk1',
+#     comprador="Renato Maddalena",
+#     quantidade=11
+# )
+# db.session.add(transacao)
+#try: db.session.commit() # if there's a problem
+#except: db.session.rollback()
+#finally: db.session.close()
+
+# how to retrieve an entry and modify a field
+# row = Transacoes.query.filter_by(id='idk2').first()
+# print(row)
+# row.quantidade = 12
+# db.session.commit()
