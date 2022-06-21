@@ -112,8 +112,6 @@ def history():
         today = datetime.datetime.utcnow()
         past = today - datetime.timedelta(days=num_dias)
         
-        print(f"{past=}")
-
         # returned as a list
         out = Transacoes.query.filter( #.order_by(User.username)
         (Transacoes.data >= past) & (Transacoes.data <= today))#.all()
@@ -121,10 +119,6 @@ def history():
         out2 = [el.__dict__ for el in out]
         for el in out2: del el['_sa_instance_state']
         out3 = {"transacoes": out2}
-        
-        print(f"{out3=} \n\n")
-        #print(f"{trasacs=}")
-        #print(out[0].__dict__)
         
         return render_template("history.html", data=out3)#data=trasacs)
             
@@ -142,7 +136,9 @@ def transac_delete():
     if request.method == "POST":
         
         del_id = request.data.decode("utf-8") 
-        utils.delete_transaction(DATA_PATH, del_id)
+        print(f"\nTrying to delete transac: {del_id}")
+        Transacoes.query.filter(Transacoes.id == del_id).delete()
+        db.session.commit()
         
         return "All good!"
             
