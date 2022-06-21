@@ -36,6 +36,10 @@ class Transacoes(db.Model): # has to match the DB table you're targeting
     data = db.Column("data", db.Date)
     observacoes = db.Column("observacoes", db.String(100))
     id = db.Column("id", db.String(100), primary_key=True)
+    
+    def __init__(self, attributes_dict):
+        for key in attributes_dict:
+            setattr(self, key, attributes_dict[key])
         
 ##################################################################
 # These are the actual web app pages
@@ -84,27 +88,14 @@ def form(id=None):
                 id = data['id']
                 if not id: data['id'] = str(uuid.uuid4())
 
-                transacao = Transacoes( 
-                    id = data['id'],
-                    comprador = data['comprador'],
-                    tipo_transacao = data['tipo_transacao'],
-                    tipo_pneu = data['tipo_pneu'],
-                    quantidade = data['quantidade'],
-                    preco_unitario = data['preco_unitario'],
-                    data = data['data'],
-                    observacoes = data['observacoes']
-                )
+                transacao = Transacoes(data)
                 db.session.add(transacao)
                 
-                try: db.session.commit() # if there's a problem
+                try: db.session.commit() 
                 except: db.session.rollback()
                 finally: db.session.close()
             
             store_in_db(db, request.form)
-            # adding form data into DB is done through creating an object
-            # transacao = Transacoes()
-            # db.session.add(transacao)
-            # db.session.commit()
             
     return render_template("form.html")
 
