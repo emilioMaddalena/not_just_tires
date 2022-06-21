@@ -8,7 +8,7 @@ Form page
 
 <script src="../static/js/submit_button.js"> </script>
 <script src="../static/js/form.js"> </script>
-
+<script src="../static/js/checks.js"> </script>
 
 <!-- the action attribute defines the address to which the user will be
      redirected to after submitting the form. If "#", then to the same page. -->
@@ -20,7 +20,7 @@ Form page
     </div>    
 </div>
 
-<form action="./form" method = "post" id="main-form">
+<form action="./form" method="post" id="main-form">
     <div class="form-group">
         <label style="color:red;">*</label><label>Comprador:</label>
         <select class="form-control" id="field_comprador" name="comprador">
@@ -76,9 +76,23 @@ Form page
     </div>
 
     <script>
-        submitButton()
+        createSubmitButton()
+
         document.getElementById("submit-button").onclick = function() {
-            document.getElementById("main-form").submit();
+
+            // // Check if the entered date is not in the furute
+            // var today = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+            // var input = document.getElementById("field_data").value;
+
+            // console.log(today);
+            // console.log(input);
+
+           if ( checkTime(field_id="field_data") ) {
+
+               document.getElementById("main-form").submit();
+
+           }
+
         }
     </script>
 

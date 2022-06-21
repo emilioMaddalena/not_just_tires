@@ -20,7 +20,6 @@ DATA_PATH = './data/test-data.json'
 app = Flask(__name__)
 app.secret_key = FLASK_APP_KEY
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = ''.join(['postgresql://', DB_USER, ':', DB_PASSWORD, '@', DB_ENDPOINT, '/', DB_NAME])
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_FULL_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -60,13 +59,10 @@ def index():
     else: return render_template("error.html"), 404
 
 @app.route("/form", methods=["GET", "POST"])
-#@app.route("/form/<id>", methods=["GET", "POST"])
 def form(id=None):
     
-    if request.method == "GET":
+    if request.method == "GET": 
         
-        # the user is requesting the form
-        print('new GET message!', flush=True)
         return render_template("form.html")
     
     elif request.method == "POST":
@@ -102,15 +98,20 @@ def form(id=None):
 @app.route("/history", methods=["GET", "POST"])
 def history():
     
-    if request.method == "GET": return render_template("history.html", data="")
+    if request.method == "GET": 
+        
+        return render_template("history.html", data="")
     
     elif request.method == "POST":
         
         num = int(request.form["num-trans"])
         trasacs = utils.load_transactions(DATA_PATH, num)
+        
         return render_template("history.html", data=trasacs)
             
-    else: return render_template("error.html"), 404
+    else: 
+        
+        return render_template("error.html"), 404
 
 ##################################################################
 # These are HTTP access points not associated with a specific page
@@ -123,9 +124,12 @@ def transac_delete():
         
         del_id = request.data.decode("utf-8") 
         utils.delete_transaction(DATA_PATH, del_id)
+        
         return "All good!"
             
-    else: return render_template("error.html"), 404
+    else: 
+        
+        return render_template("error.html"), 404
 
 @app.route("/update-trans", methods=["POST"])
 def transac_update():
@@ -135,24 +139,23 @@ def transac_update():
         update_id = request.data.decode("utf-8") 
         # data = ...
         utils.delete_transaction(DATA_PATH, update_id)
+        
         return "All good!"
             
-    else: return render_template("error.html"), 404
+    else: 
+        
+        return render_template("error.html"), 404
 
 #####################
 # Initialization
 #####################
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     
-#     print("Hello there!")
-#     db.create_all()
-#     app.run(debug=False)
+    print("Hello there!")
+    db.create_all()
+    app.run(debug=False, use_reloader=False)
     
-print("Hello there!")
-db.create_all()
-app.run(debug=True, use_reloader=False)
-
 # #! To be deleted
 # transacao = Transacoes(
 #     id = 'idk1',

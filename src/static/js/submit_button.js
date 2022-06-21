@@ -1,4 +1,4 @@
-function submitButton() {
+function createSubmitButton() {
 
     let p = document.createElement('p');
     let button = document.createElement('button')

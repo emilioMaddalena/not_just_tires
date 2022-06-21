@@ -17,12 +17,14 @@ def store_in_json(path, data):
          
         # generate unique ID and append to the data
         if not id: 
+            
             print("\nCREATING A NEW ID!\n")
             data['id'] = str(uuid.uuid4())
             current_contents['transacoes'].append(data)
 
         # use the provided ID to delete the existing entry
         else: 
+            
             print("\nID ALREADY SENT, REAPLCING OLD TRANSAC!\n")
             for pos in range(len(current_contents['transacoes'])):
                 
