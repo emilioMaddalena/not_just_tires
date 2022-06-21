@@ -80,31 +80,18 @@ Form page
 
         document.getElementById("submit-button").onclick = function() {
 
-            // // Check if the entered date is not in the furute
-            // var today = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-            // var input = document.getElementById("field_data").value;
-
-            // console.log(today);
-            // console.log(input);
-
            if ( checkTime(field_id="field_data") ) {
-
                document.getElementById("main-form").submit();
-
            }
 
         }
     </script>
 
     <script>
-        // add_item();
-    </script>
-
-    <script>
         let field_id = document.getElementById("field_ID");
         field_id.style.display = "none";
         
-        // retreiving all query string parameters
+        // retreiving all query string parameters, if any
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
         

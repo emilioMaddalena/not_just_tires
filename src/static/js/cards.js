@@ -81,6 +81,11 @@ function fillTransCard(card, trans) {
     del_button.innerText = 'Deletar'
     del_button.onclick = function() {
         
+        // Delete everything
+        // let password = prompt("Enter the deletion password:", "123456");
+        // fetch('./clear-DB', { method: 'POST', body: password})
+        //     .then(window.location.reload());
+
         fetch('./del-trans', { method: 'POST', body: id})
             .then(window.location.reload());
             

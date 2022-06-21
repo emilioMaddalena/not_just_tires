@@ -10,8 +10,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 import pymysql
 import uuid
+import datetime
 
-from my_secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY, DB_FULL_URL
+from my_secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY, DB_FULL_URL, PASSWORD_CLEAR_DB
 import utils
 
 STATE = 'DEBUG'
@@ -104,10 +105,28 @@ def history():
     
     elif request.method == "POST":
         
-        num = int(request.form["num-trans"])
-        trasacs = utils.load_transactions(DATA_PATH, num)
+        num_dias = int(request.form["num-trans"])
+        #trasacs = utils.load_transactions(DATA_PATH, num_dias)
         
-        return render_template("history.html", data=trasacs)
+        # Implement DB fetching 
+        today = datetime.datetime.utcnow()
+        past = today - datetime.timedelta(days=num_dias)
+        
+        print(f"{past=}")
+
+        # returned as a list
+        out = Transacoes.query.filter( #.order_by(User.username)
+        (Transacoes.data >= past) & (Transacoes.data <= today))#.all()
+        
+        out2 = [el.__dict__ for el in out]
+        for el in out2: del el['_sa_instance_state']
+        out3 = {"transacoes": out2}
+        
+        print(f"{out3=} \n\n")
+        #print(f"{trasacs=}")
+        #print(out[0].__dict__)
+        
+        return render_template("history.html", data=out3)#data=trasacs)
             
     else: 
         
@@ -124,6 +143,23 @@ def transac_delete():
         
         del_id = request.data.decode("utf-8") 
         utils.delete_transaction(DATA_PATH, del_id)
+        
+        return "All good!"
+            
+    else: 
+        
+        return render_template("error.html"), 404
+    
+@app.route("/clear-DB", methods=["POST"])
+def clear_db():
+    
+    if request.method == "POST":
+        
+        password = request.data.decode("utf-8") 
+        if password == PASSWORD_CLEAR_DB: 
+            print("\nCorrect password... deleting all DB entries!\n")
+            Transacoes.query.delete()
+            db.session.commit()
         
         return "All good!"
             
