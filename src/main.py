@@ -113,8 +113,8 @@ def history():
         past = today - datetime.timedelta(days=num_dias)
         
         # returned as a list
-        out = Transacoes.query.filter( #.order_by(User.username)
-        (Transacoes.data >= past) & (Transacoes.data <= today))#.all()
+        out = Transacoes.query.order_by(Transacoes.data.desc()).filter( 
+        (Transacoes.data >= past) & (Transacoes.data <= today))
         
         out2 = [el.__dict__ for el in out]
         for el in out2: del el['_sa_instance_state']
@@ -123,22 +123,9 @@ def history():
         print(f"{out3=}\n")
         print(f"{out3['transacoes'][0]['data'].day=}")
         
-        def formatIndividualDate(datetime):
-            if (len(str(datetime.month)) == 1):
-                return ''.join([str(datetime.day), '/0', str(datetime.month), '/', str(datetime.year)])
-            else:
-                return ''.join([str(datetime.day), '/', str(datetime.month), '/', str(datetime.year)])
+        utils.formatDictDates(out3)
         
-        def formatDictDates(myDict):
-            for transac in myDict['transacoes']:
-                transac['data'] = formatIndividualDate(transac['data'])
-            return
-        
-        formatDictDates(out3)
-        
-        #! TODO transform the date time into the right format to be displayed on the history page
-        
-        return render_template("history.html", data=out3)#data=trasacs)
+        return render_template("history.html", data=out3)
             
     else: 
         
