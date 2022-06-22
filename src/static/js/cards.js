@@ -39,6 +39,11 @@ function fillTransCard(card, trans) {
     msg.style.fontWeight = 'bold'
     msg.innerText = `${tipo_transacao}: ${data}`
     card.appendChild(msg)
+
+    // debug DELETE LATER
+    console.log(data)
+    console.log(typeof data)
+
     
     let info1 = document.createElement('div')
     info1.innerText = `Comprador: ${comprador}`

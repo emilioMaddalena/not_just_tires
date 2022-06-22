@@ -120,6 +120,24 @@ def history():
         for el in out2: del el['_sa_instance_state']
         out3 = {"transacoes": out2}
         
+        print(f"{out3=}\n")
+        print(f"{out3['transacoes'][0]['data'].day=}")
+        
+        def formatIndividualDate(datetime):
+            if (len(str(datetime.month)) == 1):
+                return ''.join([str(datetime.day), '/0', str(datetime.month), '/', str(datetime.year)])
+            else:
+                return ''.join([str(datetime.day), '/', str(datetime.month), '/', str(datetime.year)])
+        
+        def formatDictDates(myDict):
+            for transac in myDict['transacoes']:
+                transac['data'] = formatIndividualDate(transac['data'])
+            return
+        
+        formatDictDates(out3)
+        
+        #! TODO transform the date time into the right format to be displayed on the history page
+        
         return render_template("history.html", data=out3)#data=trasacs)
             
     else: 
