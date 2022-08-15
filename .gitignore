@@ -1,5 +1,9 @@
 # All my secrets
-my_secrets.py
+secrets.py
+personal_notes.txt
+
+#Mac stuff
+*.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
