@@ -12,7 +12,7 @@ import pymysql
 import uuid
 import datetime
 
-from secrets import DB_ENDPOINT, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, FLASK_APP_KEY, DB_FULL_URL, PASSWORD_CLEAR_DB
+from my_secrets import FLASK_APP_KEY, DB_FULL_URL, PASSWORD_CLEAR_DB
 import utils
 
 STATE = 'DEBUG'
