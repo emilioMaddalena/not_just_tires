@@ -15,6 +15,11 @@ function nameToString(varObj) {
     return Object.keys(varObj)[0];
 }
 
+function formatDateString(date) {
+    // Takes a data in the form dd/mm/yyyy and produces yyyy-mm-dd
+    return [date.slice(6,10), date.slice(3,5), date.slice(0,2)].join('-');
+}
+
 function fillTransCard(card, trans) {
 
     const { id, comprador, data, observacoes, preco_unitario, quantidade, tipo_pneu, tipo_transacao } = trans;
@@ -26,7 +31,7 @@ function fillTransCard(card, trans) {
         'field_tipo_pneu': tipo_pneu,
         'field_quantidade': quantidade,
         'field_preco_unitario': preco_unitario,
-        'field_data': data,
+        'field_data': formatDateString(data),
         'field_observacoes': observacoes
     }
 

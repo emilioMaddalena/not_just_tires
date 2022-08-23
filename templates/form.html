@@ -103,7 +103,7 @@ Form page
 
             // setting all the selects to the values passed by query string (if any)
             for (const [key, value] of Object.entries(params)) {
-                
+
                 let form_field = document.getElementById(key);
                 if (form_field) {
                     form_field.value = value;
