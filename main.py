@@ -82,15 +82,23 @@ def form(id=None):
             def store_in_db(db, data):
                 
                 data = data.to_dict()
-                id = data['id']
-                if not id: data['id'] = str(uuid.uuid4())
 
+                # brand new transaction
+                if not data['id']: data['id'] = str(uuid.uuid4())
+                # delete old transact before storing the updated version
+                else: Transacoes.query.filter(Transacoes.id == data['id']).delete()
+                
                 transacao = Transacoes(data)
                 db.session.add(transacao)
-                
-                try: db.session.commit() 
-                except: db.session.rollback()
-                finally: db.session.close()
+
+                try: 
+                    db.session.commit() 
+                    print("Successfully stored the transaction.")
+                except: 
+                    db.session.rollback()
+                    print("Failed in storing the transaction.")
+                finally: 
+                    db.session.close()
             
             store_in_db(db, request.form)
             
