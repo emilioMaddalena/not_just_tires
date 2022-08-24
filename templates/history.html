@@ -16,35 +16,86 @@ Pre history page
     </div>
 </div>
 
-<form action="" method="post">
+<!-- <form action="" method="post" id="qnt-form"> -->
+<div>
     <div class="form-group">
-        <label style="color:red;">*</label><label>Transações dos ultimos:</label>
-        <select class="form-control" id="exampleFormControlSelect1" name="num-trans">
-            <option value="1">1 dia</option>
-            <option value="10">10 dias</option>
-            <option value="30">30 dias</option>
+        <label style="color:red;">*</label><label>Número de transações a serem visualizadas:</label>
+        <select class="form-control" id="qnt-select" name="num-trans">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="30">30</option>
         </select>
     </div>
 
-    <p><button type="submit" class="form-control">Submeter!</button></p>
-</form>
+    <p><button type="submit" class="form-control" id="submit-qnt">Submeter!</button></p>
+    <script>
+        document.getElementById("submit-qnt").onclick = function() {
+
+        //window.location.href="./";
+
+        // fetch('/history?' + new URLSearchParams({
+        //     page: 0,
+        //     batch_size: document.getElementById("qnt-select").value
+        // }), 
+        // { method: 'POST', mode: "no-cors"}).then(window.location.reload());
 
 
-<!-- <script type="module" src="../static/js/card.js"> -->
-    <!-- To be used in the furute -->
+        window.location = '/history?' + 
+        new URLSearchParams({
+            page: 0,
+            batch_size: document.getElementById("qnt-select").value
+        });
+
+        // fetch('./', { method: 'GET' })
+        // .then(window.location.reload())
+        // .catch(err => {alert("Couldn't get the history :(")});
+
+        }
+    </script>
+</div>
     
 <script src="../static/js/cards.js"> </script>
+<script src="../static/js/tools.js"> </script>
 <script>
 
     var data = JSON.parse('{{ data | tojson | safe }}');
 
     if( data ) {
-        trans = data.transacoes;
 
+        console.log("history: There are transactions to display!")
+
+        trans = data.transacoes;
         if (trans.length == 0) {
             alert("No transactions to display!");
         }
+
         
+        let prev_button = createNewElement("button", {
+            "id": "prev-button",
+            "type": "submit",
+            "className": "form-control",
+            "innerText": "<< Anteriores",
+            "style": `width: 200;`
+        });
+
+        let next_button = createNewElement("button", {
+            "id": "next-button",
+            "type": "submit",
+            "className": "form-control",
+            "innerText": "Próximas >>",
+            "style": `width: 200;`
+        });
+
+        let div = createNewElement("div", {
+            "className": "d-flex justify-content-between",
+        });
+        div.style.marginTop = 50;
+        div.style.marginBottom = 10;
+        
+        div.append(prev_button, next_button)
+        document.getElementById("main-div").appendChild(div);
+
+
         console.table(trans);
         printTransactions(trans)
     }

@@ -108,32 +108,30 @@ def form(id=None):
 def history():
     
     if request.method == "GET": 
-        
-        return render_template("history.html", data="")
-    
-    elif request.method == "POST":
-        
-        num_dias = int(request.form["num-trans"])
-        #trasacs = utils.load_transactions(DATA_PATH, num_dias)
-        
-        # Implement DB fetching 
-        today = datetime.datetime.utcnow()
-        past = today - datetime.timedelta(days=num_dias)
-        
-        # returned as a list
-        out = Transacoes.query.order_by(Transacoes.data.desc()).filter( 
-        (Transacoes.data >= past) & (Transacoes.data <= today))
-        
-        out2 = [el.__dict__ for el in out]
-        for el in out2: del el['_sa_instance_state']
-        out3 = {"transacoes": out2}
-        
-        print(f"{out3=}\n")
-        #print(f"{out3['transacoes'][0]['data'].day=}")
-        
-        utils.formatDictDates(out3)
-        
-        return render_template("history.html", data=out3)
+
+        if not request.args:
+
+            return render_template("history.html", data="")
+
+        else:
+                
+            batch_size = int(request.args.get('batch_size'))
+            page = int(request.args.get('page'))
+            out = Transacoes.query.order_by(Transacoes.data.desc()).slice(page*batch_size,page*batch_size+batch_size)
+            
+            # Implement DB fetching 
+            #today = datetime.datetime.utcnow()
+            #past = today - datetime.timedelta(days=num_dias)
+            # returned as a list
+            #out = Transacoes.query.order_by(Transacoes.data.desc()).filter( 
+            #(Transacoes.data >= past) & (Transacoes.data <= today))
+            
+            out2 = [el.__dict__ for el in out]
+            for el in out2: del el['_sa_instance_state']
+            out3 = {"transacoes": out2}
+            utils.formatDictDates(out3)
+            
+            return render_template("history.html", data=out3)
             
     else: 
         
