@@ -44,11 +44,6 @@ function fillTransCard(card, trans) {
     msg.style.fontWeight = 'bold'
     msg.innerText = `${tipo_transacao}: ${data}`
     card.appendChild(msg)
-
-    // debug DELETE LATER
-    console.log(data)
-    console.log(typeof data)
-
     
     let info1 = document.createElement('div')
     info1.innerText = `Comprador: ${comprador}`
@@ -72,14 +67,6 @@ function fillTransCard(card, trans) {
     mod_button.style.marginRight = '10px'
     mod_button.innerText = 'Modificar'
     mod_button.onclick = function() {
-
-        //fetch('./form/', { method: 'GET', ID: '007'})
-        //WORKS: window.location.href = ['./form/', ID].join('');
-        
-        // fetch('./form?' + new URLSearchParams({
-        //     ID: '008',
-        //     bar: 1,
-        // }));
 
         window.location.href = "./form?" + new URLSearchParams(myQueryString)
 

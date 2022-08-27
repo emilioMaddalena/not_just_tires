@@ -17,7 +17,7 @@ Pre history page
 </div>
 
 <!-- <form action="" method="post" id="qnt-form"> -->
-<div>
+<div id="upper-menu-div">
     <div class="form-group">
         <label style="color:red;">*</label><label>Número de transações a serem visualizadas:</label>
         <select class="form-control" id="qnt-select" name="num-trans">
@@ -30,33 +30,27 @@ Pre history page
     <p><button type="submit" class="form-control" id="submit-qnt">Submeter!</button></p>
     <script>
         document.getElementById("submit-qnt").onclick = function() {
-
-        //window.location.href="./";
-
-        // fetch('/history?' + new URLSearchParams({
-        //     page: 0,
-        //     batch_size: document.getElementById("qnt-select").value
-        // }), 
-        // { method: 'POST', mode: "no-cors"}).then(window.location.reload());
-
-
+        
         window.location = '/history?' + 
         new URLSearchParams({
             page: 0,
             batch_size: document.getElementById("qnt-select").value
         });
 
-        // fetch('./', { method: 'GET' })
-        // .then(window.location.reload())
-        // .catch(err => {alert("Couldn't get the history :(")});
-
         }
+
     </script>
 </div>
     
 <script src="../static/js/cards.js"> </script>
 <script src="../static/js/tools.js"> </script>
 <script>
+
+    let params = (new URL(document.location)).searchParams;
+
+    if ( params.has("page") && params.has("batch_size") ) {
+        document.getElementById("qnt-select").value = parseInt(params.get("batch_size"));
+    }
 
     var data = JSON.parse('{{ data | tojson | safe }}');
 
@@ -69,6 +63,12 @@ Pre history page
             alert("No transactions to display!");
         }
 
+        console.table(trans);
+        printTransactions(trans);
+    }
+
+    // Check if page and batch_size are defined
+    if ( params.has("page") && params.has("batch_size") ) {
         
         let prev_button = createNewElement("button", {
             "id": "prev-button",
@@ -92,12 +92,50 @@ Pre history page
         div.style.marginTop = 50;
         div.style.marginBottom = 10;
         
-        div.append(prev_button, next_button)
-        document.getElementById("main-div").appendChild(div);
+        div.append(prev_button, next_button);
+        document.getElementById("upper-menu-div").appendChild(div);
+        
+        document.getElementById("prev-button").onclick = function() {
 
+            // Reverse page
+            let params = (new URL(document.location)).searchParams;
 
-        console.table(trans);
-        printTransactions(trans)
+            if ( params.has("page") ) {
+                var current_page = parseInt(params.get('page'));
+                if ( current_page > 0 ) { var next_page = current_page - 1; }
+                else { var next_page = 0; }
+            } else { 
+                var next_page = 0;
+            }
+
+            window.location = '/history?' + 
+            new URLSearchParams({
+                page: next_page,
+                batch_size: document.getElementById("qnt-select").value
+            });
+
+        }
+
+        document.getElementById("next-button").onclick = function() {
+
+            // Advance page
+            let params = (new URL(document.location)).searchParams;
+
+            if ( params.has("page") ) {
+                var current_page = parseInt(params.get('page'));
+                var next_page = current_page + 1;
+            } else { 
+                var next_page = 0;
+            }
+
+            window.location = '/history?' + 
+            new URLSearchParams({
+                page: next_page,
+                batch_size: document.getElementById("qnt-select").value
+            });
+
+        }
+
     }
 
 </script>

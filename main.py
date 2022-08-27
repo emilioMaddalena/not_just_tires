@@ -137,6 +137,24 @@ def history():
         
         return render_template("error.html"), 404
 
+
+@app.route("/report", methods=["GET", "POST"])
+def report():
+    
+    if request.method == "GET": 
+
+        if not request.args:
+
+            return render_template("report.html", data="")
+
+        else:
+                
+            return render_template("report.html", data="")
+            
+    else: 
+        
+        return render_template("error.html"), 404
+
 ##################################################################
 # These are HTTP access points not associated with a specific page
 ##################################################################
