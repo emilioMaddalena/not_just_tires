@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pre history page
+{% endblock %}
+
+{% block content %}
+
+<!-- the action attribute defines the address to which the user will be
+     redirected to after submitting the form. If "#", then to the same page. -->
+
+<div class="jumbotron" style="display:flex; align-items: center;">
+    <div>
+        <h1>Relatório</h1>
+        <p>Principais informações a respeito do inventário.</p>
+    </div>
+</div>
+
+<!-- <form action="" method="post" id="qnt-form"> -->
+<div id="upper-menu-div">
+    <div class="form-group">
+        <label style="color:red;">*</label><label>Ano da análise:</label>
+        <select class="form-control" id="year-select" name="year-select">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+        </select>
+    </div>
+    <div>
+        <label style="color:red;">*</label><label>Mês da análise:</label>
+        <select class="form-control" id="month-select" name="month-select">
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <p><button type="submit" class="form-control" id="submit-date">Submeter!</button></p>
+        <script>
+            document.getElementById("submit-date").onclick = function() {
+            window.location = '/report?' + 
+            new URLSearchParams({
+                year: parseInt(document.getElementById("year-select").value),
+                month: parseInt(document.getElementById("month-select").value)
+            });
+            }
+        </script>
+    </div>
+</div>
+<br>
+
+<div id="report-div">
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var report_div = document.getElementById("report-div");
+    report_div.style.display = "none";
+</script>
+
+{% endblock %}
