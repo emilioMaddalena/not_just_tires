@@ -65,18 +65,16 @@ Pre history page
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">ENTRADAS NO PERÍODO:</h5>
+              <h2 class="card-text" id="num-entradas"></p>
             </div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">SAÍDAS NO PERÍODO:</h5>
+              <h2 class="card-text" id="num-saidas"></p>
             </div>
           </div>
         </div>
@@ -84,8 +82,40 @@ Pre history page
 </div>
 
 <script>
-    var report_div = document.getElementById("report-div");
-    report_div.style.display = "none";
+    
+    var report = JSON.parse('{{ data | tojson | safe }}');
+
+    if ( ! report ) { 
+
+        var report_div = document.getElementById("report-div");
+        report_div.style.display = "none";
+
+    } else {
+
+        document.getElementById("num-entradas").innerText = report.entradas;
+        document.getElementById("num-saidas").innerText = report.saidas;
+
+    }
+
+    function format_money_string(quantity){
+
+        // TO BE COMPLETED, we want a number 98102 to become the string R$ 98.102
+
+        let quantity_string = quantity.toString();
+        let quotient = Math.floor(quantity_string.length/3);
+
+        for (let i = 0; i < quotient; i++) {
+            text += cars[i] + "<br>";
+        }
+
+        //let out_string = [date.slice(6,10), date.slice(3,5), date.slice(0,2)].join('-')
+
+        return out_string;
+    }
+
+    
+    // let card = document.createElement('div');
+    // card.className = 'alert alert-primary'
 </script>
 
 {% endblock %}
