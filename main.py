@@ -11,6 +11,8 @@ from flask_sqlalchemy import SQLAlchemy
 import pymysql
 import uuid
 import datetime
+import calendar
+import pprint
 
 from my_secrets import FLASK_APP_KEY, DB_FULL_URL, PASSWORD_CLEAR_DB
 import utils
@@ -117,7 +119,7 @@ def history():
                 
             batch_size = int(request.args.get('batch_size'))
             page = int(request.args.get('page'))
-            out = Transacoes.query.order_by(Transacoes.data.desc()).slice(page*batch_size,page*batch_size+batch_size)
+            db_data = Transacoes.query.order_by(Transacoes.data.desc()).slice(page*batch_size,page*batch_size+batch_size)
             
             # Implement DB fetching 
             #today = datetime.datetime.utcnow()
@@ -125,13 +127,10 @@ def history():
             # returned as a list
             #out = Transacoes.query.order_by(Transacoes.data.desc()).filter( 
             #(Transacoes.data >= past) & (Transacoes.data <= today))
-            
-            out2 = [el.__dict__ for el in out]
-            for el in out2: del el['_sa_instance_state']
-            out3 = {"transacoes": out2}
-            utils.formatDictDates(out3)
-            
-            return render_template("history.html", data=out3)
+
+            data = utils.sql_to_dict(db_data)
+
+            return render_template("history.html", data=data)
             
     else: 
         
@@ -148,8 +147,22 @@ def report():
             return render_template("report.html", data="")
 
         else:
+
+            year = int(request.args.get('year'));
+            month = int(request.args.get('month'));
+
+            first_day = datetime.date(year, month, 1)
+            last_day = datetime.date(year, month, calendar.monthrange(year, month)[1])
+
+            db_data = Transacoes.query.filter( 
+                    (Transacoes.data >= first_day) & (Transacoes.data <= last_day))
+            
+            data = utils.sql_to_dict(db_data)
+            
+            report = utils.generate_report(data)
+            print(report)
                 
-            return render_template("report.html", data="")
+            return render_template("report.html", data=report)
             
     else: 
         
