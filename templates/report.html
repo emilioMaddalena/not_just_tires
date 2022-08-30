@@ -64,7 +64,7 @@ Pre history page
 <div id="report-div">
     <div class="row">
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card text-primary">
             <div class="card-body">
               <h5 class="card-title">TOTAL VENDAS:</h5>
               <h2 class="card-text" id="tot-vendas"></p>
@@ -72,7 +72,7 @@ Pre history page
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="card">
+          <div class="card text-danger">
             <div class="card-body">
               <h5 class="card-title">TOTAL COMPRAS:</h5>
               <h2 class="card-text" id="tot-compras"></p>
@@ -80,11 +80,9 @@ Pre history page
           </div>
         </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div id="report-div">
     <div class="row">
         <div class="col-sm-6">
           <div class="card">
@@ -103,6 +101,7 @@ Pre history page
           </div>
         </div>
     </div>
+    
 </div>
 
 <script>
@@ -130,7 +129,6 @@ Pre history page
 
         for (let i = 0; i < quotient; i++) {
             out_string = "." + quantity_string.slice(quantity_string.length-(i*3)-3, quantity_string.length-(i*3)) + out_string;
-            console.log({out_string});
         }
         out_string = "R$ " + quantity_string.slice(0,quantity_string.length-quotient*3) + out_string;
 
