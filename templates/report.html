@@ -65,16 +65,37 @@ Pre history page
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">ENTRADAS NO PERÍODO:</h5>
-              <h2 class="card-text" id="num-entradas"></p>
+              <h5 class="card-title">TOTAL VENDAS:</h5>
+              <h2 class="card-text" id="tot-vendas"></p>
             </div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">SAÍDAS NO PERÍODO:</h5>
-              <h2 class="card-text" id="num-saidas"></p>
+              <h5 class="card-title">TOTAL COMPRAS:</h5>
+              <h2 class="card-text" id="tot-compras"></p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div id="report-div">
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">NÚMERO DE VENDAS:</h5>
+              <h2 class="card-text" id="num-vendas"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">NÚMERO DE COMPRAS:</h5>
+              <h2 class="card-text" id="num-compras"></p>
             </div>
           </div>
         </div>
@@ -82,7 +103,37 @@ Pre history page
 </div>
 
 <script>
-    
+    // Extract params from querystring and fill boxes with them
+
+    let params = (new URL(document.location)).searchParams;
+
+    if ( params.has("year") && params.has("month") ) {
+        document.getElementById("month-select").value = parseInt(params.get("month"));
+        document.getElementById("year-select").value = parseInt(params.get("year"));
+    }
+
+</script>
+
+
+<script>
+
+    function format_money_string(quantity){
+
+        // Transform an int e.g. 98102 into the string R$ 98.102
+
+        let quantity_string = quantity.toString();
+        let quotient = Math.floor(quantity_string.length/3);
+        var out_string = '';
+
+        for (let i = 0; i < quotient; i++) {
+            out_string = "." + quantity_string.slice(quantity_string.length-(i*3)-3, quantity_string.length-(i*3)) + out_string;
+            console.log({out_string});
+        }
+        out_string = "R$ " + quantity_string.slice(0,quantity_string.length-quotient*3) + out_string;
+
+        return out_string;
+    }
+
     var report = JSON.parse('{{ data | tojson | safe }}');
 
     if ( ! report ) { 
@@ -92,28 +143,13 @@ Pre history page
 
     } else {
 
-        document.getElementById("num-entradas").innerText = report.entradas;
-        document.getElementById("num-saidas").innerText = report.saidas;
+        document.getElementById("tot-vendas").innerText = format_money_string(report.entradas);
+        document.getElementById("tot-compras").innerText = format_money_string(report.saidas);
+
+        console.log(report.entradas);
+        console.log(format_money_string(report.entradas));
 
     }
-
-    function format_money_string(quantity){
-
-        // TO BE COMPLETED, we want a number 98102 to become the string R$ 98.102
-
-        let quantity_string = quantity.toString();
-        let quotient = Math.floor(quantity_string.length/3);
-
-        for (let i = 0; i < quotient; i++) {
-            text += cars[i] + "<br>";
-        }
-
-        //let out_string = [date.slice(6,10), date.slice(3,5), date.slice(0,2)].join('-')
-
-        return out_string;
-    }
-
-    
     // let card = document.createElement('div');
     // card.className = 'alert alert-primary'
 </script>
