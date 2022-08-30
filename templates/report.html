@@ -58,6 +58,7 @@ Pre history page
         </script>
     </div>
 </div>
+
 <br>
 
 <div id="report-div">
@@ -80,6 +81,8 @@ Pre history page
         </div>
     </div>
 </div>
+
+<br>
 
 <div id="report-div">
     <div class="row">
@@ -143,15 +146,14 @@ Pre history page
 
     } else {
 
-        document.getElementById("tot-vendas").innerText = format_money_string(report.entradas);
-        document.getElementById("tot-compras").innerText = format_money_string(report.saidas);
+        document.getElementById("tot-vendas").innerText = format_money_string(report.valor_vendas);
+        document.getElementById("tot-compras").innerText = format_money_string(report.valor_compras);
 
-        console.log(report.entradas);
-        console.log(format_money_string(report.entradas));
+        document.getElementById("num-vendas").innerText = report.num_vendas;
+        document.getElementById("num-compras").innerText = report.num_compras;
 
     }
-    // let card = document.createElement('div');
-    // card.className = 'alert alert-primary'
+    
 </script>
 
 {% endblock %}
