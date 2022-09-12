@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Form page
+<!-- <meta charset="UTF-8"> -->
+{% endblock %}
+
+{% block content %}
+
+<script src="../static/js/submit_button.js"> </script>
+
+<div class="jumbotron" style="display:flex; align-items: center;">
+    <div>
+        <h1>Página de login</h1>
+        <p>Entre os dados de usuário.</p>
+    </div>    
+</div>
+
+<form action="./login" method="post" id="main-form">
+
+    <div class="form-group">
+        <label>&#129299; Usuário:</label>
+        <p><input class="form-control" id="field_user" type="text" name="user"/></p>
+    </div>
+    
+    <div class="form-group">
+        <label>&#128273; Senha:</label>
+        <p><input class="form-control" id="field_password" type="password" name="password"/></p>
+    </div>
+    
+    <script>
+        createSubmitButton()
+        document.getElementById("submit-button").onclick = async function() {
+
+            let response = await fetch("/login", {
+                method : "POST",
+                body: new FormData(document.getElementById("main-form")),
+            });
+            let data = await response.json();
+            
+            if (data.token) {
+                window.sessionStorage.setItem("token", JSON.stringify(data.token));
+                alert('Login feito com sucesso! 🙏');
+                window.location = './';
+
+            } else {
+                console.log("No token returned!");
+                alert('Usuário e/ou senha inválidos! ✋');
+            }
+
+        }
+    </script>
+
+</form>
+
+{% endblock %}

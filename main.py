@@ -3,11 +3,13 @@ This will become a nice website in the future!
 '''
 
 from crypt import methods
+from functools import wraps 
 import json
 
-from flask import Flask, jsonify, flash, redirect, render_template, request, url_for
+from flask import Flask, jsonify, flash, redirect, render_template, request, url_for, make_response
 from flask_sqlalchemy import SQLAlchemy
 
+import jwt
 import pymysql
 import uuid
 import datetime
@@ -51,6 +53,43 @@ class Transacoes(db.Model): # has to match the DB table you're targeting
 def page_not_found(e):
     
     return render_template("error.html"), 404
+    
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    
+    if request.method == "GET":
+        return render_template("login.html")
+        
+    elif request.method == "POST":
+        
+        form = request.form.to_dict()
+        
+        if form and (form['user'] == 'Renato') and (form['password'] == '12345'):
+            
+            print("Successful login!")
+            token = jwt.encode({'user': form['user'], 
+                                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, # expiration in 30 mins
+                                key=FLASK_APP_KEY,
+                                algorithm='HS256')
+            return jsonify({'token': token}) 
+        
+        else: return jsonify({})
+    
+    else: return render_template("error.html"), 404
+
+def protected(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        
+        token = request.args.get('token')
+        if not token: return 'Token is missing!'
+        try:
+            data = jwt.decode(token, FLASK_APP_KEY, algorithms='HS256')
+        except Exception as e:
+            return 'Invalid token!' # return str(e)
+        return f(*args, **kwargs)
+    
+    return decorated
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -62,6 +101,7 @@ def index():
     else: return render_template("error.html"), 404
 
 @app.route("/form", methods=["GET", "POST"])
+@protected
 def form(id=None):
     
     if request.method == "GET": 
