@@ -101,7 +101,6 @@ def index():
     else: return render_template("error.html"), 404
 
 @app.route("/form", methods=["GET", "POST"])
-@protected
 def form(id=None):
     
     if request.method == "GET": 
@@ -119,7 +118,7 @@ def form(id=None):
         else:
             
             utils.print_deb('You\'ve successfully submitted your data!', STATE)
-            utils.store_in_json(DATA_PATH, request.form)
+            #utils.store_in_json(DATA_PATH, request.form)
             
             def store_in_db(db, data):
                 
