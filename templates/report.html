@@ -135,9 +135,15 @@ Pre history page
         let quotient = Math.floor(quantity_string.length/3);
         var out_string = '';
 
-        for (let i = 0; i < quotient; i++) {
+        console.log("QUANTITY:")
+        console.log(quantity_string)
+        console.log("CEIL:")
+        console.log(quotient)
+
+        for ( let i=0; i<quotient; i++ ) {
             out_string = "." + quantity_string.slice(quantity_string.length-(i*3)-3, quantity_string.length-(i*3)) + out_string;
         }
+        if ( quantity_string.length % 3 == 0 ) { out_string = out_string.slice(1) }
         out_string = "R$ " + quantity_string.slice(0,quantity_string.length-quotient*3) + out_string;
 
         return out_string;
